@@ -62,6 +62,7 @@ public class TimeServerHandler implements Runnable {
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 }
+                this.socket = null;
             }
 
         }finally{

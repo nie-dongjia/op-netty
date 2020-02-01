@@ -17,7 +17,7 @@ import java.net.Socket;
  * <b>修改时间：</b>2020/2/1 18:16<br/>
  * <b>修改备注：</b><br/>
  *
- * @version 1.0<br   />
+ * @version 1.0<br       />
  */
 public class TimeClient {
 
@@ -32,20 +32,40 @@ public class TimeClient {
             }
         }
 
-        Socket socket = null ;
+        Socket socket = null;
         BufferedReader bufferedReader = null;
-        PrintWriter PrintWriter = null;
+        PrintWriter printWriter = null;
         try {
-            socket = new Socket("127.0.0.1",port);
+            socket = new Socket("127.0.0.1", port);
             bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            PrintWriter = new PrintWriter(socket.getOutputStream(),true);
-            PrintWriter.println("QUERY TIME ORDER");
+            printWriter = new PrintWriter(socket.getOutputStream(), true);
+            printWriter.println("QUERY TIME ORDER");
             System.out.println("Send success");
             String resp = bufferedReader.readLine();
-            System.out.println("Now is :"+ resp);
-            
+            System.out.println("Now is :" + resp);
+
         } catch (IOException e) {
-            e.printStackTrace();
+
+        } finally {
+            if (bufferedReader != null) {
+                try {
+                    bufferedReader.close();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+            }
+            if (printWriter != null) {
+                printWriter.close();
+                printWriter = null;
+            }
+            if (socket != null) {
+                try {
+                    socket.close();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+                socket = null ;
+            }
         }
 
 
