@@ -32,7 +32,7 @@ public class TimeServerHandler implements Runnable {
         try {
             bufferedReader  =  new BufferedReader( new InputStreamReader(this.socket.getInputStream()));
             printWriter = new PrintWriter(this.socket.getOutputStream(),true);
-            String currentTiem = null ;
+            String currentTime = null ;
             String body = null ;
 
             while(true){
@@ -41,8 +41,8 @@ public class TimeServerHandler implements Runnable {
                     break;
                 }
                 System.out.println("The time server receive  ordedr : "+body );
-                currentTiem = "QUERY TIME ORDER".equalsIgnoreCase(body)? new Date(System.currentTimeMillis()).toString() : "BAD ORDER ";
-                printWriter.println(currentTiem);
+                currentTime = "QUERY TIME ORDER".equalsIgnoreCase(body)? new Date(System.currentTimeMillis()).toString() : "BAD ORDER ";
+                printWriter.println(currentTime);
             }
         } catch (Exception e) {
             if(bufferedReader != null ){
