@@ -38,7 +38,7 @@ public class TimeServer {
             while (true) {
                 socket = serverSocket.accept();
                 new Thread(new TimeServerHandler(socket)).start();
-            }
+        }
         } finally {
             if (serverSocket != null) {
                 System.out.println("The time server is closed");
