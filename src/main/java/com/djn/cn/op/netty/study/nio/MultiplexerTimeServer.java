@@ -1,7 +1,6 @@
 package com.djn.cn.op.netty.study.nio;
 
 import java.io.IOException;
-import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.SelectionKey;
@@ -14,7 +13,7 @@ import java.util.Set;
 
 /**
  * <b>类   名：</b>com.djn.cn.op.netty.study.nio.MultiplexerTimeServer<br/>
- * <b>类描述：</b>多路复用 <br/>
+ * <b>类描述：</b>NIO 多路复用 <br/>
  * <b>创建人：</b>op.nie-dongjia<br/>
  * <b>创建时间：</b>2020/2/2 14:19<br/>
  * <b>修改人：</b>op.nie-dongjia<br/>
