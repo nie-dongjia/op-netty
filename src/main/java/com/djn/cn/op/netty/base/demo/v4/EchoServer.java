@@ -41,7 +41,9 @@ public class EchoServer {
         EventLoopGroup workerEventLoopGroup = new NioEventLoopGroup();
         try {
             ServerBootstrap b = new ServerBootstrap();
-            b.group(bossEventLoopGroup,workerEventLoopGroup).channel(NioServerSocketChannel.class).handler(new LoggingHandler(LogLevel.INFO))
+            b.group(bossEventLoopGroup,workerEventLoopGroup).
+                    channel(NioServerSocketChannel.class)
+                    .handler(new LoggingHandler(LogLevel.INFO))
                     .childHandler(new ChannelInitializer<SocketChannel>() {
                         @Override
                         protected void initChannel(SocketChannel ch) {

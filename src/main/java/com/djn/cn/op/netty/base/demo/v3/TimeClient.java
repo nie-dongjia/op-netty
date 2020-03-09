@@ -13,7 +13,7 @@ import io.netty.handler.codec.string.StringDecoder;
 
 /**
  * <b>类   名：</b>com.djn.cn.op.netty.base.demo.TimeClient<br/>
- * <b>类描述：</b>TODO<br/>
+ * <b>类描述：</b><br/>
  * <b>创建人：</b>op.nie-dongjia<br/>
  * <b>创建时间：</b>2020/2/3 21:17<br/>
  * <b>修改人：</b>op.nie-dongjia<br/>
@@ -49,7 +49,7 @@ public class TimeClient {
 
 
     public static void main(String[] args) throws Exception {
-        int port = 8080;
+        int port = 1884;
         if(args != null && args.length > 0){
             try {
                 port = Integer.parseInt(args[0]);

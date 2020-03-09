@@ -10,7 +10,7 @@ import java.util.Date;
 
 /**
  * <b>类   名：</b>com.djn.cn.op.netty.base.demo.TimeServerHandler<br/>
- * <b>类描述：</b> 未考虑TCP 粘包 Demo  <br/>
+ * <b>类描述：</b> 考虑TCP 粘包 Demo  <br/>
  * <b>创建人：</b>op.nie-dongjia<br/>
  * <b>创建时间：</b>2020/2/3 17:07<br/>
  * <b>修改人：</b>op.nie-dongjia<br/>
