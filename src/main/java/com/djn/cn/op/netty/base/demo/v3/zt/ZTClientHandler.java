@@ -1,5 +1,6 @@
-package com.djn.cn.op.netty.base.demo.v3;
+package com.djn.cn.op.netty.base.demo.v3.zt;
 
+import com.djn.cn.op.netty.util.DataSwitchUtil;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerAdapter;
@@ -17,19 +18,28 @@ import io.netty.channel.ChannelHandlerContext;
  *
  * @version 1.0<br />
  */
-public class TimeClientHandler extends ChannelHandlerAdapter {
+public class ZTClientHandler extends ChannelHandlerAdapter {
 
     private int counter ;
-    private byte[] req ;
-
-
-    public TimeClientHandler() {
-         req = ("Query Time Order" + System.getProperty("line.separator")).getBytes();
+    public ZTClientHandler() {
     }
     @Override
     public void channelActive(ChannelHandlerContext ctx){
+        String toMsg = "AAAA5555C800B0C0133004190000000000"+"5AA5";
+//        for(int i = 0 ; i < 10000 ;i++){
+//            try {
+//                // 停半秒为了减少历史协议粘包粘问题，不能根本解决问题
+//                Thread.sleep(500);
+//            } catch (InterruptedException e) {
+//            }
+//            System.out.println("发送数据："+toMsg);
+//
+//            ctx.writeAndFlush(DataSwitchUtil.hexStringToBytes(toMsg));
+//        }
         ByteBuf message = null;
         for(int i = 0 ; i < 10000 ;i++){
+            System.out.println("发送数据："+toMsg);
+            byte[]req = DataSwitchUtil.hexStringToBytes(toMsg);
             message = Unpooled.buffer(req.length);
             message.writeBytes(req);
             ctx.writeAndFlush(message);
@@ -38,16 +48,17 @@ public class TimeClientHandler extends ChannelHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx,Object msg) throws Exception{
-//        ByteBuf buf = (ByteBuf)msg;
-//        byte[] req = new byte[buf.readableBytes()];
-//        buf.readBytes(req);
-//        String body = new String(req,"UTF-8");
-        String body = (String) msg;
-        System.out.println("NOW is :" + body+ ";the counter is : " + ++counter);
+        String message = getMessage((ByteBuf) msg);
+        System.out.println("Client NOW is :" + message+ ";the counter is : " + ++counter);
     }
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx,Throwable cause){
         System.out.println("unexpected exception from downstream : " + cause.getMessage());
         ctx.close();
+    }
+    private String getMessage(ByteBuf buf) {
+        byte[] con = new byte[buf.readableBytes()];
+        buf.readBytes(con);
+        return DataSwitchUtil.bytesToHexString(con);
     }
 }
