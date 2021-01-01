@@ -1,8 +1,6 @@
 package com.djn.cn.op.netty.base.demo.v3.zt;
 
-import com.djn.cn.op.netty.util.DataSwitchUtil;
 import io.netty.bootstrap.Bootstrap;
-import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
@@ -10,7 +8,7 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import io.netty.handler.codec.DelimiterBasedFrameDecoder;
+import io.netty.handler.codec.bytes.ByteArrayEncoder;
 
 /**
  * <b>类   名：</b>com.djn.cn.op.netty.base.demo.TimeClient<br/>
@@ -23,7 +21,7 @@ import io.netty.handler.codec.DelimiterBasedFrameDecoder;
  *
  * @version 1.0<br />
  */
-public class ZTClient {
+public class ZTClientV2 {
     public void connect(int port,String host) throws Exception{
         EventLoopGroup eventLoopGroup = new NioEventLoopGroup();
 
@@ -34,12 +32,12 @@ public class ZTClient {
                     .handler(new ChannelInitializer<SocketChannel>() {
                         @Override
                         protected void initChannel(SocketChannel ch) throws Exception {
-                            String end = "5AA5" ;
-                            ch.pipeline().addLast(new DelimiterBasedFrameDecoder(1024,Unpooled.copiedBuffer(DataSwitchUtil.hexStringToBytes(end))));
-//                            ch.pipeline().addLast(new ByteArrayEncoder());
+//                            String end = "5AA5" ;
+//                            ch.pipeline().addLast(new DelimiterBasedFrameDecoder(1024, Unpooled.copiedBuffer(DataSwitchUtil.hexStringToBytes(end))));
+                            ch.pipeline().addLast(new ByteArrayEncoder());
 //                            ch.pipeline().addLast(new LineBasedFrameDecoder(1024));
 //                            ch.pipeline().addLast(new StringDecoder());
-                            ch.pipeline().addLast(new ZTClientHandler());
+                            ch.pipeline().addLast(new ZTClientV2Handler());
                         }
                     });
 
@@ -53,7 +51,7 @@ public class ZTClient {
 
 
     public static void main(String[] args) throws Exception {
-        int port = 8080;
+        int port = 9001;
         if(args != null && args.length > 0){
             try {
                 port = Integer.parseInt(args[0]);
@@ -62,7 +60,7 @@ public class ZTClient {
             }
         }
 
-        new ZTClient().connect(port,"127.0.0.1");
+        new ZTClientV2().connect(port,"127.0.0.1");
 
     }
 }
